@@ -3,20 +3,14 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { Header } from "./components/header.jsx";
-import { ways } from "./data.js";
-
-function WayToTeach(props) {
-  return (
-    <li>
-      <p>
-        <strong>{props.title}</strong>
-        {props.description}
-      </p>
-    </li>
-  );
-}
-
+import WayToTeach from "./components/WayToTeach.jsx";
+import { ways, differences } from "./data.js";
+import Button from "./components/Button/Button.jsx";
 function App() {
+  const [content, setContent] = useState("Нажми");
+  function handleClick(type) {
+    setContent(type);
+  }
   return (
     <div>
       <Header></Header>
@@ -24,10 +18,17 @@ function App() {
         <section>
           <h1>Hello React!!</h1>
           <ul>
-            <WayToTeach title={ways[0].title} description={ways[0].description} />
-            <WayToTeach title={ways[1].title} description={ways[1].description} />
-            <WayToTeach title={ways[2].title} description={ways[2].description} />
+            {ways.map((way) => (
+              <WayToTeach {...way}></WayToTeach>
+            ))}
           </ul>
+        </section>
+        <section>
+          <h3>Чем мы отличаемся</h3>
+          <Button onClick={() => handleClick("easy")}>button-1</Button>
+          <Button onClick={() => handleClick("program")}>button333</Button>
+          <Button onClick={() => handleClick("way")}>button222</Button>
+          <p>{differences[content]}</p>
         </section>
       </main>
     </div>
