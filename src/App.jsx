@@ -3,35 +3,31 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { Header } from "./components/header.jsx";
-import WayToTeach from "./components/WayToTeach.jsx";
-import { ways, differences } from "./data.js";
+import TeachingSection from "./components/TeachingSection.jsx";
+import { differences } from "./data.js";
 import Button from "./components/Button/Button.jsx";
+import DifferencesSection from "./components/DifferencesSection.jsx";
+import IntroSection from "./components/IntroSection.jsx";
+import TabsSection from "./components/TabsSection.jsx";
+import FeedbackSection from "./components/FeedbackSection.jsx";
 function App() {
-  const [content, setContent] = useState("Нажми");
-  function handleClick(type) {
-    setContent(type);
-  }
+  const [tab, setTab] = useState("feedback");
+
   return (
-    <div>
+    <>
       <Header></Header>
+      <TabsSection active={tab} onChange={(current)=>{setTab(current)}}></TabsSection>
       <main>
-        <section>
-          <h1>Hello React!!</h1>
-          <ul>
-            {ways.map((way) => (
-              <WayToTeach {...way}></WayToTeach>
-            ))}
-          </ul>
-        </section>
-        <section>
-          <h3>Чем мы отличаемся</h3>
-          <Button onClick={() => handleClick("easy")}>button-1</Button>
-          <Button onClick={() => handleClick("program")}>button333</Button>
-          <Button onClick={() => handleClick("way")}>button222</Button>
-          <p>{differences[content]}</p>
-        </section>
+        <IntroSection></IntroSection>
+        {tab === "main" && (
+          <>
+            <TeachingSection></TeachingSection>
+            <DifferencesSection></DifferencesSection>
+          </>
+        )}
+        {tab === "feedback" && <FeedbackSection></FeedbackSection>}
       </main>
-    </div>
+    </>
   );
 }
 
