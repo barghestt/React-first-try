@@ -1,8 +1,7 @@
 import logo from "/vite.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import classes from "./Header.module.css";
 import { styled } from 'styled-components';
-
 const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
@@ -28,14 +27,21 @@ const HeaderContainer = styled.header`
 let now = new Date();
 export function Header() {
   const [curTime, setTime] = useState(now);
-  setInterval(() => {
-    setTime(new Date());
-  }, 1000);
+  useEffect(()=>{
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return ()=>{
+      clearInterval(interval);
+    }
+  },[])
+  
   return (
     <HeaderContainer>
       <img src={logo} alt="Logo" />
       {/* <h3>First Project</h3> */}
-      <span>Время: {curTime.toLocaleString()}</span>
+      <span>Время: {curTime.toLocaleTimeString()}</span>
       <a href="#">Нажми на ссылку</a>
     </HeaderContainer>
   );

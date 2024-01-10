@@ -10,8 +10,9 @@ import DifferencesSection from "./components/DifferencesSection.jsx";
 import IntroSection from "./components/IntroSection.jsx";
 import TabsSection from "./components/TabsSection.jsx";
 import FeedbackSection from "./components/FeedbackSection.jsx";
+import EffectSection from "./components/EffectSection.jsx";
 function App() {
-  const [tab, setTab] = useState("feedback");
+  const [tab, setTab] = useState("effect");
 
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
           </>
         )}
         {tab === "feedback" && <FeedbackSection></FeedbackSection>}
+        {tab === "effect" && <EffectSection></EffectSection>}
       </main>
     </>
   );

@@ -1,5 +1,27 @@
 import Button from "./Button/Button";
-import { useState } from "react";
+import { useState, useRef } from "react";
+
+function StateVsRef() {
+  const [show, setShow] = useState(false);
+  const input = useRef();
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      setShow(true);
+    }
+  }
+  return (
+    <div>
+      <h3>Input value: {show && input.current.value} </h3>
+      <input
+        ref={input}
+        type="text"
+        className="control"
+        onKeyDown={(e) => handleKeyDown(e)}
+      />
+    </div>
+  );
+}
+
 export default function FeedbackSection() {
   const [name, setName] = useState("");
   const [reason, setReason] = useState("help");
@@ -20,7 +42,7 @@ export default function FeedbackSection() {
           value={name}
           onChange={handleNameChange}
           style={{
-            border: name.trim().length? null : '1px solid red'
+            border: name.trim().length ? null : "1px solid red",
           }}
         ></input>
         <select
@@ -35,6 +57,7 @@ export default function FeedbackSection() {
         </select>
         <Button>Отправить</Button>
       </form>
+      <StateVsRef></StateVsRef>
     </section>
   );
 }
